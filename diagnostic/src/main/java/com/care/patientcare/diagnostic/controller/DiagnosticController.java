@@ -7,6 +7,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.json.simple.JSONObject;
@@ -36,9 +38,19 @@ public class DiagnosticController {
 	 * @return
 	 */
 	@RequestMapping(method = GET)
-	public DiagnosticDto getDiagnosticReports(@RequestParam String orderId) {
-	DiagnosticDto diagnosticCentres= ds.getDiagnosticReport(orderId);
-	return diagnosticCentres;
+	public DiagnosticDto getDiagnosticReport(@RequestParam String orderId) {
+		DiagnosticDto diagnosticReports= ds.getDiagnosticReport(orderId);
+		return diagnosticReports;
+	}
+	
+	/**
+	 * To get all Diagnostic report based on User
+	 * @return
+	 */
+	@RequestMapping(value = "/{email:.+}", method = GET)
+	public List<DiagnosticDto> getDiagnosticReports(@PathVariable("email") String email) {
+		List<DiagnosticDto> diagnosticReports= ds.getDiagnosticReports(email);
+		return diagnosticReports;
 	}
 	
 	/**

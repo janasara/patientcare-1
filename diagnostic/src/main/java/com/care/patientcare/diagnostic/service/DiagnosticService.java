@@ -1,5 +1,6 @@
 package com.care.patientcare.diagnostic.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.care.patientcare.diagnostic.domain.Diagnostic;
 import com.care.patientcare.diagnostic.dto.DiagnosticDto;
 import com.care.patientcare.diagnostic.repository.DiagnosticRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author venkatg
@@ -75,14 +77,25 @@ public class DiagnosticService extends BaseService {
 	public Diagnostic get(String id) {
 		return diagnosticRepository.findById(id);
 	}
+
+	
+	/**
+	 * Return all diagnostic reports for a particular User
+	 * @return
+	 */
+	public List<DiagnosticDto> getDiagnosticReports(String email) {
+		List<Diagnostic> diagnosticReports = diagnosticRepository.findByEmail(email);
+		return populateDiagnosticDto(diagnosticReports);
+	}
+	
 	
 	/**
      * Convert domain to DTO
-     * @param List of diagnosticCentres
-     * @return a list of diagnosticCentre Dto(s)
+     * @param List of diagnosticReports
+     * @return a list of diagnosticReport Dto(s)
      */
-    private List populateDiagnosticDto(List diagnosticCentres) {
-    	diagnosticCentres.forEach(d -> convert(d, DiagnosticDto.class));
-    	return diagnosticCentres;
+    private List populateDiagnosticDto(List diagnosticReports) {
+    	diagnosticReports.forEach(d -> convert(d, DiagnosticDto.class));
+    	return diagnosticReports;
     } 
 }

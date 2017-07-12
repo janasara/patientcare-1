@@ -31,7 +31,7 @@ public class Diagnostic {
 	
 	private String dcenter;
 	
-	private List<DiagnosticTestDto> tests;
+	private List<DiagnosticTest> tests;
 	
 
 	public String getId() {
@@ -151,11 +151,11 @@ public class Diagnostic {
 		this.dcenter = dcenter;
 	}
 
-	public List<DiagnosticTestDto> getTests() {
+	public List<DiagnosticTest> getTests() {
 		return tests;
 	}
 
-	public void setTests(List<DiagnosticTestDto> diagnosticTests) {
+	public void setTests(List<DiagnosticTest> diagnosticTests) {
 		this.tests = diagnosticTests;
 	}
 

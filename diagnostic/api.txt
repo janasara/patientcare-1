@@ -1,0 +1,29 @@
+POST http://localhost:9091/patientcare/v1/diagnosticreports
+PUT http://localhost:9091/patientcare/v1/diagnosticreports/ord1
+{
+  "id": "ord00001",
+  "name": "arshad",
+  "age": 35,
+  "gender": "Male",
+  "email": "arshad@gmail.com",
+  "mobile": 9934287654,
+  "address1": "31 St street",
+  "address2": "Jayanagar 4 T block",
+  "address3": "Bangalore",
+  "dcenter": "vert",
+  "tests": [
+    {
+      "label": "Albumin",
+      "value": "10"
+    },
+    {
+      "label": "test1",
+      "value": "20"
+    }
+  ]
+}
+
+
+GET http://localhost:9091/patientcare/v1/diagnosticreports?orderId=ord00001
+GET http://localhost:9091/patientcare/v1/diagnosticreports/arshad@gmail.com
+DELETE http://localhost:9091/patientcare/v1/diagnosticreports/ord00001

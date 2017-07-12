@@ -11,4 +11,6 @@ public interface DiagnosticRepository extends MongoRepository<Diagnostic, String
 	
 	Diagnostic findById(String id);
 	
+	List<Diagnostic> findByEmail(String email);
+	
 }
