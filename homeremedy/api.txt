@@ -1,0 +1,23 @@
+POST http://localhost:9092/patientcare/v1/homeremedies
+{
+  "id": "ord00001",
+  "title": "10 Amazing Health Benefits of Honey and Cinnamon",
+  "description": "In Ayurvedic medicine, honey and cinnamon are used extensively. Both these ingredients have powerful medicinal properties and, when combined..."
+}
+
+{
+  "id": "ord00002",
+  "title": "Home Remedies to Fix an Acidic Body",
+  "description": "Most of us never even think about the pH level of our body. But it is time to give it some thought. A proper and well-balanced pH is crucial to your overall health. Diseases and disorders cannot take root in a body whose pH is in balance. The pH level is quantified on a scale of zero to 14. A lower pH means your body is more acidic, while a higher pH means your body is more alkaline. Most people with an imbalance tend to have an acidic pH."
+}
+
+
+To get all the home remedies
+GET http://localhost:9092/patientcare/v1/homeremedies 
+
+To get top home remedies
+GET http://localhost:9092/patientcare/v1/homeremedies?category=TOP
+
+DELETE http://localhost:9092/patientcare/v1/homeremedies/ord00001
+
+
