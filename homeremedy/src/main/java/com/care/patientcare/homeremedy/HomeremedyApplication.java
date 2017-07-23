@@ -2,7 +2,13 @@ package com.care.patientcare.homeremedy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
+/**
+ * @author venkatg
+ * Home Remedy Service
+ */
+@EnableDiscoveryClient
 @SpringBootApplication
 public class HomeremedyApplication {
 
