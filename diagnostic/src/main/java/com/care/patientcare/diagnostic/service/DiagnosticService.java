@@ -1,15 +1,14 @@
 package com.care.patientcare.diagnostic.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.care.patientcare.diagnostic.domain.Diagnostic;
 import com.care.patientcare.diagnostic.dto.DiagnosticDto;
 import com.care.patientcare.diagnostic.repository.DiagnosticRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author venkatg
