@@ -2,9 +2,9 @@ package com.patientcare.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import java.util.Date;
 import java.util.List;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.patientcare.dto.DiagnosticDto;
+import com.patientcare.dto.StatusDto;
 import com.patientcare.service.DiagnosticService;
 
 /**
@@ -43,8 +44,9 @@ public class DiagnosticController {
 	 */
 	@RequestMapping("/testservice")
 	public ResponseEntity<?> testService() {
-		JSONObject testData = new JSONObject();
-		testData.put("Status", true);
-		return new ResponseEntity<>(testData, HttpStatus.OK);
+		StatusDto statusDto = new StatusDto();
+		statusDto.setStatus(true);
+		statusDto.setTime(new Date().toString());
+		return new ResponseEntity<>(statusDto, HttpStatus.OK);
 	}
 }

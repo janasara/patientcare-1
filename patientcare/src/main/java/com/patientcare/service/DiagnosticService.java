@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.patientcare.dto.DiagnosticDto;
+import com.patientcare.PatientcareConfiguration;
 import com.patientcare.domain.Diagnostic;
+import com.patientcare.dto.DiagnosticDto;
 import com.patientcare.repository.DiagnosticRepository;
 
 /**
@@ -20,6 +22,10 @@ public class DiagnosticService extends BaseService {
 	@Autowired
 	DiagnosticRepository diagnosticRepository;
 	
+	@Autowired
+	private PatientcareConfiguration patientcareConfig;
+	
+	
 	/**
 	 * Service to return the list of diagnostic centers based on the category
 	 * @param category
@@ -30,7 +36,7 @@ public class DiagnosticService extends BaseService {
 		diagnosticCentres = diagnosticRepository.findAll();
 		if ("TOP".equalsIgnoreCase(category))
 		{
-			long noOfTopCentres = 1; // TODO from Config server
+			int noOfTopCentres = patientcareConfig.getTopCentresCount(); 
 			diagnosticCentres = diagnosticCentres.stream().limit(noOfTopCentres).collect(Collectors.toList());
 		}
 		
