@@ -11,7 +11,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.care.patientcare.homeremedy.dto.HomeRemedyDto;
+import com.care.patientcare.homeremedy.dto.StatusDto;
 import com.care.patientcare.homeremedy.service.HomeRemedyService;
 
 /**
@@ -73,8 +73,8 @@ public class HomeRemedyController {
 	 */
 	@RequestMapping("/testservice")
 	public ResponseEntity<?> testService() throws JSONException {
-		JSONObject testData = new JSONObject();
-		testData.put("Status", true);
-		return new ResponseEntity<>(testData, OK);
+		StatusDto statusDto = new StatusDto();
+		statusDto.setStatus(true);
+		return new ResponseEntity<>(statusDto, OK);
 	}
 }
