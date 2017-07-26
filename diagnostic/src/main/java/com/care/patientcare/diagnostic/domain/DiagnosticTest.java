@@ -22,4 +22,9 @@ public class DiagnosticTest {
 		this.value = value;
 	}
 
+	
+	public String toString(){
+		String info = String.format("{'label': %s 'value': %s}", label, value);
+		return info;
+	}
 }

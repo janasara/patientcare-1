@@ -161,7 +161,7 @@ public class Diagnostic {
 
 
 	public String toString(){
-		String info = String.format("{'id': %s 'name': %s}", id, name);
+		String info = String.format("{'id': %s 'name': %s 'age': %s 'gender': %s 'email':%s 'test': %s}", id, name, age, gender, email, tests);
 		return info;
 	}
 }

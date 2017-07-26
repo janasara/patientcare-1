@@ -1,9 +1,9 @@
 package com.care.patientcare.diagnostic.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.care.patientcare.diagnostic.domain.Diagnostic;
@@ -25,11 +25,19 @@ public class DiagnosticService extends BaseService {
 	 * @param orderId
 	 * @return
 	 */
-	public DiagnosticDto getDiagnosticReport(String orderId) {
-		Diagnostic diagnostic = get(orderId);
-		
-		// Convert domain to dto and return
-		return convert(diagnostic, DiagnosticDto.class);
+	public List<DiagnosticDto> getDiagnosticReport(String orderId) {
+		List<DiagnosticDto> diagnosticReports = new ArrayList();
+		if (orderId != null) {
+			Diagnostic diagnostic = get(orderId);
+			if (diagnostic!=null)
+				diagnosticReports.add(convert(diagnostic, DiagnosticDto.class));
+			else
+				diagnosticReports.add(new DiagnosticDto());
+		} else {
+			List<Diagnostic> diagnosticList = diagnosticRepository.findAll();
+			diagnosticReports = populateDiagnosticDto(diagnosticList);
+		}
+		return diagnosticReports;
 	}	
 	
 	/**

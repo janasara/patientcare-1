@@ -37,7 +37,6 @@ public class DiagnosticController {
 
 	@Value("${server.port}")
 	private int port;
-	
 
 	@Autowired
 	DiagnosticService ds;
@@ -47,8 +46,8 @@ public class DiagnosticController {
 	 * @return
 	 */
 	@RequestMapping(method = GET)
-	public DiagnosticDto getDiagnosticReport(@RequestParam String orderId) {
-		DiagnosticDto diagnosticReports= ds.getDiagnosticReport(orderId);
+	public List<DiagnosticDto> getDiagnosticReport(@RequestParam(value = "orderId", required=false) String orderId) {
+		List<DiagnosticDto> diagnosticReports = ds.getDiagnosticReport(orderId);
 		return diagnosticReports;
 	}
 	
@@ -57,9 +56,9 @@ public class DiagnosticController {
 	 * @return
 	 */
 	@RequestMapping(value = "/{email:.+}", method = GET)
-	public List<DiagnosticDto> getDiagnosticReports(@PathVariable("email") String email) {
-		List<DiagnosticDto> diagnosticReports= ds.getDiagnosticReports(email);
-		return diagnosticReports;
+	public ResponseEntity<?> getDiagnosticReports(@PathVariable("email") String email) {
+		List<DiagnosticDto> diagnosticReports = ds.getDiagnosticReports(email);
+		return new ResponseEntity<>(diagnosticReports, OK);
 	}
 	
 	/**
