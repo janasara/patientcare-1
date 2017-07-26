@@ -1,6 +1,7 @@
 package com.patientcare.diagnosticloadbalancingservice.service;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.patientcare.diagnosticloadbalancingservice.dto.DiagnosticDto;
@@ -32,17 +34,22 @@ public class DiagnosticCompositeService extends BaseService {
 	 * @return Diagnostic Report
 	 */
 	@HystrixCommand(fallbackMethod = "fallBack") 
-	public DiagnosticDto getDiagnosticReport(String orderId) {
-		String diagnosticResponse = restTemplate.getForEntity("http://diagnosticreports/patientcare/v1/diagnosticreports?orderId="+orderId, String.class).getBody();
+	public List<DiagnosticDto> getDiagnosticReport(String orderId) {
+		// String diagnosticResponse = restTemplate.getForEntity("http://diagnosticreports/patientcare/v1/diagnosticreports, String.class).getBody();
+		String restUrl = "http://diagnosticreports/patientcare/v1/diagnosticreports";
+		if (orderId!=null)
+			restUrl = restUrl + "?orderId="+orderId;
+		String diagnosticResponse = restTemplate.getForEntity(restUrl, String.class).getBody();
 		
-		DiagnosticDto diagnosticDto = null;
+		List<DiagnosticDto> diagnosticReports = null;
 		try {
-			diagnosticDto =  convert(diagnosticResponse, DiagnosticDto.class);
+			DiagnosticDto[] adiagnosticReports = convert(diagnosticResponse, DiagnosticDto[].class);
+			diagnosticReports = Arrays.asList(adiagnosticReports);
 		} catch (IOException e) {
-			// TODO Handle later
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return diagnosticDto;
+		return diagnosticReports;
 	}	
 
 	/**
@@ -51,9 +58,8 @@ public class DiagnosticCompositeService extends BaseService {
 	 * @param orderId
 	 * @return Diagnostic Report
 	 */
-	public DiagnosticDto fallBack(String orderId) {
-		DiagnosticDto diagnosticDto = new DiagnosticDto();
-		return diagnosticDto;
+	public List<DiagnosticDto> fallBack(String orderId) {
+		return null;
 	}
 	
 	/**
@@ -67,5 +73,4 @@ public class DiagnosticCompositeService extends BaseService {
 		String statusResponse = restTemplate.getForEntity("http://diagnosticreports/patientcare/v1/diagnosticreports/testservice", String.class).getBody();
 		return convert(statusResponse, StatusDto.class);
 	}
-	
 }

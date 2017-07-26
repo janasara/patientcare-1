@@ -5,6 +5,7 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -39,9 +40,9 @@ public class DiagnosticCompositeController {
 	 * @return
 	 */
 	@RequestMapping(method = GET)
-	public ResponseEntity<?> getDiagnosticReport(@RequestParam String orderId) throws JsonParseException, JsonMappingException, IOException {
-		DiagnosticDto diagnosticReports= ds.getDiagnosticReport(orderId);
-		if (diagnosticReports.getId() != null)
+	public ResponseEntity<?> getDiagnosticReport(@RequestParam(value = "orderId", required=false) String orderId) throws JsonParseException, JsonMappingException, IOException {
+		List<DiagnosticDto> diagnosticReports= ds.getDiagnosticReport(orderId);
+		if (diagnosticReports != null)
 			return new ResponseEntity<>(diagnosticReports, OK);
 		else 
 			return new ResponseEntity<>("Service Not Available", NOT_FOUND);
