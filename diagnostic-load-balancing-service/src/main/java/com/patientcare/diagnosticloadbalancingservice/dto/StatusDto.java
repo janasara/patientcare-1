@@ -4,6 +4,7 @@ public class StatusDto {
 	boolean status;
 	String time;
 	String port;
+	String serviceStatus;
 
 	public boolean getStatus() {
 		return status;
@@ -27,5 +28,13 @@ public class StatusDto {
 	
 	public void setPort(String port) {
 		this.port = port;
+	}
+
+	public String getServiceStatus() {
+		return serviceStatus;
+	}
+
+	public void setServiceStatus(String serviceStatus) {
+		this.serviceStatus = serviceStatus;
 	}
 }

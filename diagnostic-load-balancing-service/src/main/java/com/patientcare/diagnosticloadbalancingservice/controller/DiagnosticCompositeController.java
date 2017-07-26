@@ -42,10 +42,15 @@ public class DiagnosticCompositeController {
 	@RequestMapping(method = GET)
 	public ResponseEntity<?> getDiagnosticReport(@RequestParam(value = "orderId", required=false) String orderId) throws JsonParseException, JsonMappingException, IOException {
 		List<DiagnosticDto> diagnosticReports= ds.getDiagnosticReport(orderId);
-		if (diagnosticReports != null)
+		if (diagnosticReports != null) {
 			return new ResponseEntity<>(diagnosticReports, OK);
-		else 
-			return new ResponseEntity<>("Service Not Available", NOT_FOUND);
+		}
+		else  {
+			StatusDto statusDto = new StatusDto();
+			statusDto.setServiceStatus("Service Not Available");
+			return new ResponseEntity<>(statusDto, NOT_FOUND);
+		}
+			
 	}
 	
 	
